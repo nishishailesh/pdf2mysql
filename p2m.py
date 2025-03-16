@@ -87,10 +87,18 @@ for i in range(0,len(doc)):
     all_dt=tabs[0].extract()
     for dt in all_dt:
       #pprint(tabs[0].extract())  # print content of first table
+      if(dt[4]=='M'):
+        dt[4]='Male'
+      elif(dt[4]=='F'):
+        dt[4]='Female'
+      else:
+        dt[4]='Other'
+
       data_dictionary={'UHID': dt[3].replace("\n",""), 'mobile': '', 'prefix': '', 'name': dt[1].replace("\n",""), 'middlename': '', 
                           'surname': '', 'sex': dt[4].replace("\n",""), 'DOB': dt[5].replace("\n",""), 'f8': '', 
                           'billing_type': '', 'f10': '', 'f11': '', 'department': dt[7].replace("\n",""), 'unit': dt[8].replace("\n",""), 'address': '', 
                           'f15': '', 'f16': '', 'clinic': dt[9].replace("\n","")}
+      logging.debug(data_dictionary)
       pprint(data_dictionary)
       #save_data(data_dictionary)
       cur=m.run_query(link,sql,data_dictionary)
