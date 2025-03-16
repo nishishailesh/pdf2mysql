@@ -1,0 +1,54 @@
+<% 
+  from bottle import url
+  upload_pdf_url=url("/upload_pdf")
+%>
+% include("bootstrap_links.html")
+
+<style>
+#main_page
+{
+  display:grid;
+
+  grid-template-areas:
+    "head       head"
+    "donor1     recipient1"
+    "donor2     recipient2"
+    "SAB1       SAB2"
+    "match      match"
+    "help       help";
+    
+    gap: 10px;
+  background-color: lightgray;
+    padding: 10px;
+
+}
+    
+</style>
+
+<div id=main_page>
+
+<div style="grid-area: head;">
+<h2  class="text-dark text-center">import nextGen eHospital Patient Demography</h2>
+<h3 class="text-dark text-center">(PDF format)</h3>
+</div>
+
+<div style="grid-area: donor1;" class="bg-primary w-100 h-100 p-2">
+<form method=post enctype="multipart/form-data" class="p-2 bg-primary">
+% include("pass_on.html")
+  <input  type=file name=file1>
+  <input  type=number name=from_page placeholder="From Page">
+  <input  type=number name=to_page placeholder="To Page">
+  <button type=submit class="btn btn-sm btn-warning"
+  formaction={{upload_pdf_url}} 
+  formtarget=_blank name=action value=upload_file>Upload PDF</button>
+</form>
+</div>
+<div style="grid-area: donor2;" class="bg-primary w-100 h-100 p-2">
+<h3>Help</h3>
+<ul>
+<li>Give [From Page] number and [To Page number]</li>
+<li>[To Pages]-[From_pages] should be less tahn .20</li>
+<li>Too many pages at a time will slow process and give Gateway Timeout error</li>
+<li>pages start from 1</li>
+</ul>
+</div>

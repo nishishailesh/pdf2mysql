@@ -1,10 +1,5 @@
 #!/usr/bin/python3
-
-
 #pip install pymysql
-
-
-
 import pymysql
 import logging
 
