@@ -7,4 +7,6 @@ source bin/activate\
 pip install pymysql\
 pip install pymupdf\
 ```
-For the timebeing put pdf in project directory and rename x.pdf !!!!
+
+copy pymsql and pymupdf to system folder (/usr/lib/python/dist-packages)\
+bottle is framework

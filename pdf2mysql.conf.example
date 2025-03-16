@@ -1,0 +1,13 @@
+#Put it in /etc/apache2/conf-enabled, remove example extention
+#chmod entire path of /root/projects/bottle +x (better use /usr/share)
+#WSGIDaemonProcess Pone  user=www-data group=www-data processes=2 threads=15
+#WSGIPassAuthorization On
+
+WSGIDaemonProcess myapp python-home=/usr/share/nchs/pdf2mysql
+WSGIProcessGroup myapp
+WSGIScriptAlias /p2m /usr/share/nchs/pdf2mysql/wsgi.py 
+<Directory /usr/share/nchs/pdf2mysql>
+    WSGIProcessGroup Pone
+    WSGIApplicationGroup %{GLOBAL}
+    Require all granted
+</Directory>
