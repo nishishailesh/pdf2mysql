@@ -7,6 +7,7 @@ import sys, logging, bcrypt, csv, pprint
 from functools import wraps
 from io import StringIO
 from p2m import pdf2mysql_io
+
 #For mysql password
 sys.path.append('/var/gmcs_config')
 ###########Setup this for getting database,user,pass for HLA database##########
@@ -90,7 +91,13 @@ def start():
     uname=request.forms.get("uname")
     psw=request.forms.get("psw")
     if(verify_user()==True):
-      return template("initial_page.html",post_data=post_data,uname=uname,psw=psw)
+      m=mysql_lis()
+      link=m.get_link(astm_var.my_host,astm_var.my_user,astm_var.my_pass,astm_var.my_db)
+      sql='select value from log_entry where name="ehospital_last_visit_date"';
+      cur=m.run_query(link,sql,None)
+      ehospital_last_entry=m.get_single_row(cur)
+      logging.debug("ehospital_last_entry: {}".format(ehospital_last_entry))
+      return template("initial_page.html",post_data=post_data,uname=uname,psw=psw,ehospital_last_entry=ehospital_last_entry)
     else:
       return template("failed_login.html",post_data=post_data,uname=uname,psw=psw)
     
